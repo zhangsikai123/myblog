@@ -1,0 +1,3 @@
+# myblog
+my blogger
+a self hold server for blogging this and that blah, blah...
