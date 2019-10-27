@@ -13,6 +13,7 @@
 									<div class="col-lg-8">
 										<div class="page-header">
 											<h1><a href="{{ url_for('single_post', permalink=post['permalink']) }}">{{ post['title'] | safe }}</a></h1>
+											<h2>some thing I wanted to say {{ product }}</h2>
 											<p><span class="icon-time">&nbsp;</span><i>Posted on {{ post['date'] |formatdate }} by {{ post['author'] }}</i></p>
 										</div>
 										<div class="content no-lightbox">
@@ -60,8 +61,7 @@
 						    {% endif %}
 						  {% endfor %}
 						  {% if pagination.has_next %}
-						    <li><a href="{{ url_for_other_page(pagination.page + 1)
-						      }}">&raquo;</a></li>
+						    <li><a href="{{ url_for_other_page(pagination.page + 1)}}">&raquo;</a></li>
 						  {% endif %}
 						</ul>
 					</div>
@@ -74,6 +74,15 @@
 			<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 			{%- block additional_js -%}{%- endblock -%}
 			<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+			<script src="https://unpkg.com/vue"></script>
+			<script>
+				const app = new Vue({
+					el: '#wrapper',
+					data: {
+					    product: 'Boots'
+					}
+				})
+			</script>
 		{%- endblock -%}
 	</body>
 </html>
