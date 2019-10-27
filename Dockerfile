@@ -1,4 +1,4 @@
-FROM skyflask
+FROM zhangsikai/skyblog:skyflask
 
 MAINTAINER sikaizhang
 
