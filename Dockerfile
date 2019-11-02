@@ -18,4 +18,4 @@ RUN python -v
 
 RUN gunicorn -v
 
-ENTRYPOINT ["gunicorn", "web:app"]
+ENTRYPOINT ["gunicorn", "-b 0.0.0.0:80", "--access-logfile", "web.log", "web:app"]
