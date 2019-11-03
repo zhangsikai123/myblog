@@ -19,7 +19,6 @@ if os.path.exists(secret_file):
     f = open(secret_file, 'r')
     SECRET_KEY = f.read().strip()
     f.close()
-
 else:
     # Generate SECRET_KEY & save it away
     SECRET_KEY = os.urandom(24)
