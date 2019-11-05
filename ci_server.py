@@ -6,6 +6,8 @@ import os
 import subprocess
 from flask import Flask
 
+from buffer import dimension_order
+
 app = Flask('Ci')
 
 
@@ -14,7 +16,7 @@ def after_git_push():
     command_line = './restart.sh >> ci.log'
     args = command_line.split(' ')
     subprocess.Popen(args)
-    return 'OK'
+    return dimension_order._buffer
 
 
 if __name__ == '__main__':

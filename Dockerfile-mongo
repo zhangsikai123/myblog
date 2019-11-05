@@ -1,0 +1,3 @@
+# user sikai zhang
+
+FROM mongo:latest

@@ -34,7 +34,7 @@ class User:
             self.response['error'] = 'System error..'
 
         self.response['data'] = {'username':
-                                 self.username, 'email': self.email}
+                                     self.username, 'email': self.email}
         return self.response
 
     @staticmethod
@@ -80,7 +80,7 @@ class User:
     @staticmethod
     def get_gravatar_link(email=''):
         gravatar_url = "http://www.gravatar.com/avatar/" + \
-            hashlib.md5(email.lower()).hexdigest() + "?"
+                       hashlib.md5(email.lower()).hexdigest() + "?"
         gravatar_url += urllib.urlencode({'d': 'retro'})
         return gravatar_url
 
@@ -130,7 +130,8 @@ class User:
                     else:
                         try:
                             self.collection.update(
-                                {'_id': user_data['_id']}, {'$set': {'email': user_data['email']}}, upsert=False, multi=False)
+                                {'_id': user_data['_id']}, {'$set': {'email': user_data['email']}}, upsert=False,
+                                multi=False)
                             self.response['data'] = True
                         except Exception, e:
                             self.print_debug_info(e, self.debug_mode)
@@ -177,6 +178,6 @@ class User:
                      'details': str(msg)}
 
             print error_color
-            print '\n\n---\nError type: %s in file: %s on line: %s\nError details: %s\n---\n\n'\
+            print '\n\n---\nError type: %s in file: %s on line: %s\nError details: %s\n---\n\n' \
                   % (error['type'], error['file'], error['line'], error['details'])
             print error_end

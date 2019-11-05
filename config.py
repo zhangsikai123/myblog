@@ -1,7 +1,7 @@
 import pymongo
 import os
 
-HOST_IP = "localhost"
+HOST_IP = "mongo"
 CONNECTION_STRING = "mongodb://" + HOST_IP  # replace it with your settings
 CONNECTION = pymongo.MongoClient(CONNECTION_STRING)
 
