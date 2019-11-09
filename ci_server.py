@@ -14,7 +14,7 @@ def after_git_push():
     command_line = './restart.sh >> ci.log'
     args = command_line.split(' ')
     subprocess.Popen(args)
-    return dimension_order._buffer
+    return 'OK'
 
 
 if __name__ == '__main__':
