@@ -1,7 +1,10 @@
 import pymongo
 import os
 
+DEBUG = True  # set it to False on production
+
 HOST_IP = "mongo"
+
 CONNECTION_STRING = "mongodb://" + HOST_IP  # replace it with your settings
 CONNECTION = pymongo.MongoClient(CONNECTION_STRING)
 
@@ -33,5 +36,3 @@ else:
     f.close()
 
 LOG_FILE = "app.log"
-
-DEBUG = True  # set it to False on production

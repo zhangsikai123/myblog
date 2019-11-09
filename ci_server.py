@@ -6,8 +6,6 @@ import os
 import subprocess
 from flask import Flask
 
-from buffer import dimension_order
-
 app = Flask('Ci')
 
 
