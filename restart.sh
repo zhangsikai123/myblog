@@ -3,4 +3,4 @@ echo app restart ...
 
 ./rebuild.sh
 
-docker-compose up
+nohup docker-compose up &
