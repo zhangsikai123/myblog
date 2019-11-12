@@ -12,9 +12,9 @@ services:
 #      - 5000:5000
   nginx:
     image: nginx:1.15-alpine
-    build:
-      context: .
-      dockerfile: Dockerfile-nginx
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-nginx
     ports:
       - 80:80
       - 443:443
