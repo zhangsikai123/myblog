@@ -1,8 +1,6 @@
 #!/bin/bash
 echo app rebuild ...
 
-docker-compose down
-
 app_image=skyblogger
 
 nginx_image=skyblogger-nginx
