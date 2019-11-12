@@ -76,6 +76,6 @@ docker-compose run --rm --entrypoint "\
     --force-renewal" certbot
 echo
 
-echo "### Reloading nginx ..."
+echo "### Reloading all ..."
 docker-compose up
 
