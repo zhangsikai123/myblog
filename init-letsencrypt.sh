@@ -39,7 +39,8 @@ echo
 
 
 echo "### Starting nginx ..."
-docker-compose up --force-recreate -d flask nginx
+docker-compose up --force-recreate -d nginx &
+docker-compose up --force-recreate -d flask
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
