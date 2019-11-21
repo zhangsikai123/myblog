@@ -1,7 +1,7 @@
 new Vue({
   el: '#post-container',
   data: {
-    input: '# hello'
+    input: document.getElementById('post-full').getAttribute('data-repo')
   },
   computed: {
     compiledMarkdown: function () {

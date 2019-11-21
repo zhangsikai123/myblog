@@ -46,8 +46,9 @@
                         {%- if error and error_type == 'validate' -%}
                         <label class="control-label" for="post-full">Required field</label>
                         {%- endif -%}
-                        <textarea id="post-full" :value="input" @input="update" name="post-full" class="form-control" rows="25"
-                                  placeholder="Full Text" required>{{ post_body | safe }}</textarea>
+                        <textarea id="post-full" data-repo="{{ post_body | safe }}"
+                                  :value="input" @input="update" name="post-full" class="form-control"
+                                  rows="25" placeholder="Full Text" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="post-tags">Tags</label>
