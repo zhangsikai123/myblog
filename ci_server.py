@@ -16,6 +16,7 @@ def after_git_push():
     subprocess.Popen(args)
     return 'OK'
 
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)),
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8081)),
             debug=app.config['DEBUG'])
