@@ -192,9 +192,18 @@ class Post:
 
     @staticmethod
     def _filter(post):
+        """
+        post can be different structures:
+            post['data'] = dict()
+            post['data'] = list(dict())
+            post = {'body': ..., 'title': ...}
+        :param post:
+        :return:
+        """
+
         data = post.get('data')
         if not data:
-            return data
+            data = post
 
         def filter_gt(text):
             gt = r"&gt;"
