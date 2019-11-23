@@ -50,6 +50,7 @@ def single_post(permalink):
     post = postClass.get_post_by_permalink(permalink)
     if not post['data']:
         abort(404)
+
     return render_template('single_post.html', post=post['data'],
                            meta_title=app.config['BLOG_TITLE'] + '::' + post['data']['title'])
 
@@ -144,6 +145,7 @@ def new_post():
 @login_required()
 def post_preview():
     post = session.get('post-preview')
+    post = post.Post._filter(post)
     return render_template('preview.html', post=post, meta_title='Preview post::' + post['title'])
 
 
@@ -156,7 +158,6 @@ def posts(page):
     posts = postClass.get_posts(int(app.config['PER_PAGE']), skip)
     count = postClass.get_total_count()
     pag = pagination.Pagination(page, app.config['PER_PAGE'], count)
-
     if not posts['data']:
         abort(404)
 

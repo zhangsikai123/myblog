@@ -4,6 +4,16 @@ from bson.objectid import ObjectId
 from helper_functions import *
 
 
+def filter_post(func):
+    @wraps(func)
+    def f(*args, **kwargs):
+        response = func(*args, **kwargs)
+        response = _filter(response)
+        return response
+
+    return f
+
+
 class Post:
 
     def __init__(self, default_config):
@@ -18,9 +28,9 @@ class Post:
             cond = {'tags': tag}
         elif search is not None:
             cond = {'$or': [
-                    {'title': {'$regex': search, '$options': 'i'}},
-                    {'body': {'$regex': search, '$options': 'i'}},
-                    {'preview': {'$regex': search, '$options': 'i'}}]}
+                {'title': {'$regex': search, '$options': 'i'}},
+                {'body': {'$regex': search, '$options': 'i'}},
+                {'preview': {'$regex': search, '$options': 'i'}}]}
         try:
             cursor = self.collection.find(cond).sort(
                 'date', direction=-1).skip(skip).limit(limit)
@@ -48,6 +58,7 @@ class Post:
 
         return self.response
 
+    @filter_post
     def get_post_by_permalink(self, permalink):
         self.response['error'] = None
         try:
@@ -84,9 +95,9 @@ class Post:
             cond = {'tags': tag}
         elif search is not None:
             cond = {'$or': [
-                    {'title': {'$regex': search, '$options': 'i'}},
-                    {'body': {'$regex': search, '$options': 'i'}},
-                    {'preview': {'$regex': search, '$options': 'i'}}]}
+                {'title': {'$regex': search, '$options': 'i'}},
+                {'body': {'$regex': search, '$options': 'i'}},
+                {'preview': {'$regex': search, '$options': 'i'}}]}
 
         return self.collection.find(cond).count()
 
@@ -147,10 +158,10 @@ class Post:
     @staticmethod
     def validate_post_data(post_data):
         permalink = random_string(12)
-        #exp = re.compile('\W')
-        #whitespace = re.compile('\s')
-        #temp_title = whitespace.sub("_", post_data['title'])
-        #permalink = exp.sub('', temp_title)
+        # exp = re.compile('\W')
+        # whitespace = re.compile('\s')
+        # temp_title = whitespace.sub("_", post_data['title'])
+        # permalink = exp.sub('', temp_title)
 
         post_data['title'] = cgi.escape(post_data['title'])
         post_data['preview'] = cgi.escape(post_data['preview'], quote=True)
@@ -175,6 +186,31 @@ class Post:
                      'details': str(msg)}
 
             print error_color
-            print '\n\n---\nError type: %s in file: %s on line: %s\nError details: %s\n---\n\n'\
+            print '\n\n---\nError type: %s in file: %s on line: %s\nError details: %s\n---\n\n' \
                   % (error['type'], error['file'], error['line'], error['details'])
             print error_end
+
+    @staticmethod
+    def _filter(post):
+        data = post.get('data')
+        if not data:
+            return data
+
+        def filter_gt(text):
+            gt = r"&gt;"
+            return text.replace(gt, ">")
+
+        def f(post):
+            if "title" in post:
+                post['title'] = filter_gt(post['title'])
+            if "body" in post:
+                post['body'] = filter_gt(post['body'])
+            if "preview" in post:
+                post['preview'] = filter_gt(post['preview'])
+
+        if isinstance(data, list):
+            for d in data:
+                f(d)
+        else:
+            f(data)
+        return post
