@@ -109,3 +109,6 @@ ENV/
 gen_idl/
 
 .vscode
+
+# log
+nohup.out

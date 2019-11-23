@@ -8,7 +8,7 @@ def filter_post(func):
     @wraps(func)
     def f(*args, **kwargs):
         response = func(*args, **kwargs)
-        response = _filter(response)
+        response = Post._filter(response)
         return response
 
     return f
