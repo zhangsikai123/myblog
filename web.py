@@ -8,7 +8,7 @@ from mdx_strike import StrikeExtension
 from mdx_quote import QuoteExtension
 from mdx_code_multiline import MultilineCodeExtension
 from werkzeug.contrib.atom import AtomFeed
-import post
+from post import Post
 import user
 import pagination
 import settings
@@ -145,7 +145,7 @@ def new_post():
 @login_required()
 def post_preview():
     post = session.get('post-preview')
-    post = post.Post._filter(post)
+    post = Post._filter(post)
     return render_template('preview.html', post=post, meta_title='Preview post::' + post['title'])
 
 
@@ -445,7 +445,7 @@ def format_datetime_filter(input_value, format_="%a, %d %b %Y"):
 
 
 settingsClass = settings.Settings(app.config)
-postClass = post.Post(app.config)
+postClass = Post(app.config)
 userClass = user.User(app.config)
 
 app.jinja_env.globals['url_for_other_page'] = url_for_other_page
