@@ -6,4 +6,5 @@ echo app restart ...
 
 docker-compose down
 
+
 nohup docker-compose up &
