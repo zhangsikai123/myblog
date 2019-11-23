@@ -1,4 +1,10 @@
 #!/bin/bash
+
+
+echo git pull ...
+git pull
+
+
 echo app rebuild ...
 
 app_image=skyblogger

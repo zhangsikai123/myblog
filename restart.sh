@@ -1,7 +1,6 @@
 #!/bin/bash
 echo app restart ...
 
-
 # rebuild all image
 ./rebuild.sh
 
