@@ -62,8 +62,10 @@ class Post:
     def get_post_by_permalink(self, permalink):
         self.response['error'] = None
         try:
-            self.response['data'] = self.collection.find_one(
+            post = self.collection.find_one(
                 {'permalink': permalink})
+            post['id'] = post['_id']
+            self.response['data'] = post
         except Exception, e:
             self.print_debug_info(e, self.debug_mode)
             self.response['error'] = 'Post not found..'

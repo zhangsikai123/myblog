@@ -12,8 +12,7 @@
                     <a title="Edit" href="{{ url_for('post_edit', id=post['id']) }}"
                        class="icon-edit-sign bigger icon"></a>
                 </h1>
-                <p><span class="icon-time">&nbsp;</span><i>Posted on {{ post['date'] |formatdate }} by {{ post['author']
-                    }}</i></p>
+                <p><span class="icon-time">&nbsp;</span><i>Posted on {{ post['date'] |formatdate }} by {{ post['author'] }}</i></p>
                 <div class="social row-fluid">
                     <!-- AddThis Button BEGIN -->
                     <div class="addthis_toolbox addthis_default_style addthis_16x16_style">

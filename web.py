@@ -50,7 +50,6 @@ def single_post(permalink):
     post = postClass.get_post_by_permalink(permalink)
     if not post['data']:
         abort(404)
-
     return render_template('single_post.html', post=post['data'],
                            meta_title=app.config['BLOG_TITLE'] + '::' + post['data']['title'])
 
