@@ -209,7 +209,9 @@ class Post:
 
         def filter_gt(text):
             gt = r"&gt;"
-            return text.replace(gt, ">")
+            lt = r"&lt;"
+            quote = r"&quot;"
+            return text.replace(gt, '>').replace(lt, '<').replace(quote, '"')
 
         def f(post):
             if "title" in post:
