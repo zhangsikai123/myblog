@@ -28,6 +28,8 @@ app.config.from_object('config')
 def index(page):
     skip = (page - 1) * int(app.config['PER_PAGE'])
     posts = postClass.get_posts(int(app.config['PER_PAGE']), skip)
+    for data in posts['data']:
+        Post._filter(data)
     count = postClass.get_total_count()
     pag = pagination.Pagination(page, app.config['PER_PAGE'], count)
     return render_template('index.html', posts=posts['data'], pagination=pag, meta_title=app.config['BLOG_TITLE'])
@@ -171,8 +173,11 @@ def post_edit(id):
         flash(post['error'], 'error')
         return redirect(url_for('posts'))
 
-    if session.get('post-preview') and session['post-preview']['action'] == 'add':
-        session.pop('post-preview', None)
+    if session.get('post-preview'):
+        if session['post-preview']['action'] == 'add':
+            session.pop('post-preview', None)
+        else:
+            Post._reverse_filter(session['post-preview'])
     return render_template('edit_post.html',
                            meta_title='Edit post::' + post['data']['title'],
                            post=post['data'],

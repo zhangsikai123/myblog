@@ -8,7 +8,17 @@ def filter_post(func):
     @wraps(func)
     def f(*args, **kwargs):
         response = func(*args, **kwargs)
-        response = Post._filter(response)
+        response['data'] = Post._filter(response['data'])
+        return response
+
+    return f
+
+
+def reverse_filter_post(func):
+    @wraps(func)
+    def f(*args, **kwargs):
+        response = func(*args, **kwargs)
+        response = Post._reverse_filter(response)
         return response
 
     return f
@@ -203,23 +213,60 @@ class Post:
         :return:
         """
 
-        data = post.get('data')
+        data = post
         if not data:
             data = post
 
-        def filter_gt(text):
+        def filter_x(text):
             gt = r"&gt;"
             lt = r"&lt;"
             quote = r"&quot;"
             return text.replace(gt, '>').replace(lt, '<').replace(quote, '"')
+            return text
 
         def f(post):
             if "title" in post:
-                post['title'] = filter_gt(post['title'])
+                post['title'] = filter_x(post['title'])
             if "body" in post:
-                post['body'] = filter_gt(post['body'])
+                post['body'] = filter_x(post['body'])
             if "preview" in post:
-                post['preview'] = filter_gt(post['preview'])
+                post['preview'] = filter_x(post['preview'])
+
+        if isinstance(data, list):
+            for d in data:
+                f(d)
+        else:
+            f(data)
+        return post
+
+    @staticmethod
+    def _reverse_filter(post):
+        """
+        post can be different structures:
+            post['data'] = dict()
+            post['data'] = list(dict())
+            post = {'body': ..., 'title': ...}
+        :param post:
+        :return:
+        """
+
+        data = post
+        if not data:
+            data = post
+
+        def filter_x(text):
+            gt = r">"
+            lt = r"<"
+            quote = r'"'
+            return text.replace(gt, '&gt;').replace(lt, '&lt;').replace(quote, '&quot;')
+
+        def f(post):
+            if "title" in post:
+                post['title'] = filter_x(post['title'])
+            if "body" in post:
+                post['body'] = filter_x(post['body'])
+            if "preview" in post:
+                post['preview'] = filter_x(post['preview'])
 
         if isinstance(data, list):
             for d in data:
