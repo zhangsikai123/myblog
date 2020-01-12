@@ -214,17 +214,16 @@ class Post:
         """
 
         data = post
-        if not data:
-            data = post
 
         def filter_x(text):
             gt = r"&gt;"
             lt = r"&lt;"
             quote = r"&quot;"
             return text.replace(gt, '>').replace(lt, '<').replace(quote, '"')
-            return text
 
         def f(post):
+            if not post:
+                return
             if "title" in post:
                 post['title'] = filter_x(post['title'])
             if "body" in post:
@@ -251,8 +250,6 @@ class Post:
         """
 
         data = post
-        if not data:
-            data = post
 
         def filter_x(text):
             gt = r">"
@@ -261,6 +258,8 @@ class Post:
             return text.replace(gt, '&gt;').replace(lt, '&lt;').replace(quote, '&quot;')
 
         def f(post):
+            if not post:
+                return
             if "title" in post:
                 post['title'] = filter_x(post['title'])
             if "body" in post:
